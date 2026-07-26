@@ -465,17 +465,22 @@
 
 
         // --- 3. ИНТЕРАКТИВ И СКРЫТИЕ ИНТЕРФЕЙСА (ZEN MODE) ---
-        const leftPanel = document.getElementById('controls-left');
-        const rightPanel = document.getElementById('controls-right');
-        
-        // Клик по фону скрывает/показывает интерфейс, защищая невидимые кнопки через pointer-events: none
-        document.body.addEventListener('click', (e) => {
-            if (e.target === document.body) {
-                leftPanel.classList.toggle('interface-hidden');
-                rightPanel.classList.toggle('interface-hidden');
-            }
-        });
+     const leftPanel = document.getElementById('controls-left');
+const rightPanel = document.getElementById('controls-right');
 
+// Клик по фону скрывает/показывает интерфейс и включает полноэкранный режим
+document.body.addEventListener('click', (e) => {
+    if (e.target === document.body) {
+        leftPanel.classList.toggle('interface-hidden');
+        rightPanel.classList.toggle('interface-hidden');
+
+        if (!document.fullscreenElement) {
+            if (document.documentElement.requestFullscreen) {
+                document.documentElement.requestFullscreen().catch(() => {});
+            }
+        }
+    }
+});
 
         // --- 4. УПРАВЛЕНИЕ СЛАЙДЕРАМИ И ЦВЕТАМИ ---
         const root = document.documentElement;
